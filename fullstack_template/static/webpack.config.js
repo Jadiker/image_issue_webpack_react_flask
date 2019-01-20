@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const config = {
     entry:  __dirname + '/js/index.jsx',
     output: {
-        path: __dirname + '/dist',
+        // path: __dirname + '/dist',
+        // path: __dirname + '/', // TODO this did not seem to work, even with a change to index.html
         filename: 'bundle.js',
     },
     resolve: {
