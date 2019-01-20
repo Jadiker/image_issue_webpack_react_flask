@@ -19,15 +19,23 @@ def index():
 def hello():
     return get_hello()
     
-@app.route("/public/<path:path>")
-def get_public_file(path):
-    print("getting something from public: {}".format(path))
-    return send_from_directory("public", path)
+# @app.route("/public/<path:path>")
+# def get_public_file(path):
+#     print("getting something from public: {}".format(path))
+#     return send_from_directory("public", path)
+# 
+# @app.route("/dist/<path:path>")
+# def get_dist_file(path):
+#     print("getting something from dist: {}".format(path))
+#     return send_from_directory("./dist", path)
     
-@app.route("/dist/<path:path>")
-def get_dist_file(path):
-    print("getting something from dist: {}".format(path))
-    return send_from_directory("./dist", path)
+@app.route('/<path:path>')
+def static_file(path):
+    print("getting static file {}".format(path))
+    if path.startswith("public/"):
+        path = "dist/" + path
+        print("in public folder; path changed to: {}".format(path))
+    return app.send_static_file(path)
 
 
 if __name__ == "__main__":
