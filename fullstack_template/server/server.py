@@ -1,5 +1,6 @@
 # server.py
 import random
+import os
 from flask import Flask, render_template, send_from_directory
 
 # app = Flask(__name__, static_folder="../static/dist", template_folder="../static")
@@ -36,6 +37,12 @@ def hello():
 #         path = "dist/" + path
 #         print("in public folder; path changed to: {}".format(path))
 #     return app.send_static_file(path)
+
+@app.route("/public/<path:path>")
+def get_public_file(path):
+    full_path = os.path.join('../static/dist/public/', path)
+    head, tail = os.path.split(full_path)
+    return send_from_directory(head, tail)
 
 
 if __name__ == "__main__":
